@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khushwant Singh | Full Stack Developer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            400: '#e879f9', // Fuchsia 400
+                            500: '#d946ef', // Fuchsia 500
+                            600: '#c026d3', // Fuchsia 600
+                        },
+                        secondary: {
+                            400: '#fb923c', // Orange 400
+                            500: '#f97316', // Orange 500
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'scroll': 'scroll 20s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #d946ef, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 3D Tilt Effect on Cards */
+        .project-card {
+            transition: transform 0.1s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        
+        /* Animation Utilities */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-500 antialiased overflow-x-hidden font-sans">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-[100px] animate-blob mix-blend-multiply dark:mix-blend-screen filter opacity-70"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-[100px] animate-blob animation-delay-2000 mix-blend-multiply dark:mix-blend-screen filter opacity-70"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px] animate-blob animation-delay-4000 mix-blend-multiply dark:mix-blend-screen filter opacity-70"></div>
+    </div>
+
+    <!-- Floating Dock Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+        <div class="glass flex items-center gap-2 p-2 rounded-2xl shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+            
+            <a href="#" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+                <i data-lucide="home" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-400 transition-colors"></i>
+                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Home</span>
+            </a>
+
+            <a href="#work" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+                <i data-lucide="briefcase" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-400 transition-colors"></i>
+                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Work</span>
+            </a>
+
+            <a href="#services" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+                <i data-lucide="sparkles" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-400 transition-colors"></i>
+                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Expertise</span>
+            </a>
+
+            <a href="#contact" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+                <i data-lucide="mail" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-400 transition-colors"></i>
+                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Contact</span>
+            </a>
+
+            <!-- Divider -->
+            <div class="w-px h-6 bg-slate-300 dark:bg-slate-700 mx-1"></div>
+
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="p-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:shadow-lg transition-transform hover:scale-105 active:scale-95">
+                <i data-lucide="sun" class="hidden dark:block w-5 h-5"></i>
+                <i data-lucide="moon" class="block dark:hidden w-5 h-5"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center pt-20 relative px-6">
+            <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="reveal active z-10 order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-400 font-medium text-sm">
+                        <span class="w-2 h-2 rounded-full bg-fuchsia-500 animate-pulse"></span>
+                        Available for work
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold tracking-tighter leading-[1.1] mb-6">
+                        Hi, I'm <br>
+                        <span class="text-gradient">Khushwant Singh.</span>
+                    </h1>
+
+                    <h2 class="text-2xl font-display font-medium text-slate-700 dark:text-slate-200 mb-6">
+                        Full Stack Developer <span class="text-fuchsia-500 mx-2">•</span> MERN Specialist
+                    </h2>
+                    
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-lg leading-relaxed">
+                        I build scalable web applications and intelligent systems using React, Node.js, and Python. Turning complex logic into seamless user experiences.
+                    </p>
+                    
+                    <!-- NEW Social & Contact Dock (Replaces previous buttons) -->
+                    <div class="flex flex-wrap items-center gap-4 mt-8">
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/khushwant-singh-developer/" target="_blank" class="group relative p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm hover:border-blue-500 hover:scale-110 transition-all duration-300" aria-label="LinkedIn">
+                            <i data-lucide="linkedin" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors"></i>
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="https://github.com/TooKhush" target="_blank" class="group relative p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm hover:border-purple-500 hover:scale-110 transition-all duration-300" aria-label="GitHub">
+                            <i data-lucide="github" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-purple-500 transition-colors"></i>
+                        </a>
+
+                        <!-- Email -->
+                        <a href="mailto:official.khushwant.1@gmail.com" class="group relative p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm hover:border-red-500 hover:scale-110 transition-all duration-300" aria-label="Email">
+                            <i data-lucide="mail" class="w-6 h-6 text-slate-600 dark:text-slate-400 group-hover:text-red-500 transition-colors"></i>
+                        </a>
+
+                        <!-- WhatsApp (Green Highlight) -->
+                        <a href="https://wa.me/+918840538304?text=Hello" target="_blank" class="group relative flex items-center gap-2 px-6 py-4 rounded-2xl border border-green-500/30 bg-green-500/10 backdrop-blur-sm hover:bg-green-500 hover:text-white hover:scale-105 transition-all duration-300">
+                            <!-- Custom SVG for WhatsApp since Lucide doesn't always handle brands perfectly across versions -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0 .5-.5a.5.5 0 0 0-.5-.5H9a1.5 1.5 0 0 0-1.5 1.5v1a1.5 1.5 0 0 0 1.5 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1"/></svg>
+                            <span class="font-bold text-green-700 dark:text-green-400 group-hover:text-white">Chat on WhatsApp</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Profile Picture / Visual -->
+                <div class="order-1 lg:order-2 flex justify-center relative reveal delay-200">
+                    <div class="relative w-[350px] h-[350px] lg:w-[450px] lg:h-[450px] animate-float">
+                        <!-- Glow Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-fuchsia-500 to-orange-500 rounded-full opacity-30 blur-3xl"></div>
+                        
+                        <!-- Image Container with Gradient Border -->
+                        <div class="absolute inset-2 bg-gradient-to-br from-fuchsia-500 via-purple-500 to-orange-500 rounded-full p-1 shadow-2xl">
+                            <div class="w-full h-full rounded-full overflow-hidden bg-slate-900 border-4 border-slate-900 relative">
+                                <!-- Profile Image -->
+                                <img src="profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2000&auto=format&fit=crop'" alt="Khushwant Singh" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                            </div>
+                        </div>
+
+                         <!-- Floating Badges -->
+                         <div class="absolute -right-4 top-1/4 p-4 glass rounded-2xl flex items-center gap-3 animate-bounce shadow-lg" style="animation-duration: 3.5s;">
+                            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
+                                <i data-lucide="database" class="w-5 h-5"></i>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-bold dark:text-white">MongoDB</div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -left-4 bottom-1/3 p-4 glass rounded-2xl flex items-center gap-3 animate-bounce shadow-lg" style="animation-duration: 4.5s;">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500">
+                                <i data-lucide="atom" class="w-5 h-5"></i>
+                            </div>
+                            <div class="text-sm">
+                                <div class="font-bold dark:text-white">React.js</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-400">
+                <i data-lucide="chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Tech Stack Marquee (New Feature) -->
+        <section class="py-10 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800 backdrop-blur-sm overflow-hidden">
+            <div class="flex gap-16 animate-scroll w-max">
+                <!-- Duplicate items for seamless loop -->
+                <div class="flex gap-16 items-center text-slate-400 font-display font-bold text-xl uppercase tracking-widest">
+                    <span>React</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Node.js</span>
+                    <span class="text-orange-500">•</span>
+                    <span>MongoDB</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Express</span>
+                    <span class="text-orange-500">•</span>
+                    <span>Python</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Flask</span>
+                    <span class="text-orange-500">•</span>
+                    <span>Machine Learning</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Git</span>
+                    <span class="text-orange-500">•</span>
+                    <span>REST API</span>
+                </div>
+                <div class="flex gap-16 items-center text-slate-400 font-display font-bold text-xl uppercase tracking-widest">
+                    <span>React</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Node.js</span>
+                    <span class="text-orange-500">•</span>
+                    <span>MongoDB</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Express</span>
+                    <span class="text-orange-500">•</span>
+                    <span>Python</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Flask</span>
+                    <span class="text-orange-500">•</span>
+                    <span>Machine Learning</span>
+                    <span class="text-fuchsia-500">•</span>
+                    <span>Git</span>
+                    <span class="text-orange-500">•</span>
+                    <span>REST API</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section (Moved Up + Enhanced Background) -->
+        <section id="work" class="py-32 relative px-6 overflow-hidden">
+             <!-- Enhanced Background Pattern -->
+            <div class="absolute inset-0 bg-slate-50 dark:bg-slate-900 transition-colors duration-500"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+            <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-500 opacity-20 blur-[100px]"></div>
+            <div class="absolute right-0 bottom-0 -z-10 h-[310px] w-[310px] rounded-full bg-orange-500 opacity-20 blur-[100px]"></div>
+
+            <div class="container mx-auto relative z-10">
+                <div class="mb-20 reveal">
+                    <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">Featured Work</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400">Real-world solutions built with modern tech.</p>
+                </div>
+
+                <div class="flex flex-col gap-32">
+                    
+                    <!-- Project 1: Doctor Appointment -->
+                    <div class="project-card group grid lg:grid-cols-12 gap-12 items-center reveal">
+                        <div class="lg:col-span-7 order-2 lg:order-1 relative">
+                            <a href="https://cleo.help/login" target="_blank" class="block relative rounded-3xl overflow-hidden shadow-2xl aspect-video group-hover:scale-[1.02] transition-transform duration-700">
+                                <div class="absolute inset-0 bg-fuchsia-900/10 group-hover:bg-transparent transition-all duration-500 z-10"></div>
+                                <!-- Placeholder Image for Medical/Doctor App -->
+                                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop" alt="Doctor Appointment System" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                
+                                <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse shadow-lg z-20">LIVE</div>
+                            </a>
+                        </div>
+                        <div class="lg:col-span-5 order-1 lg:order-2">
+                            <span class="text-fuchsia-600 dark:text-fuchsia-400 font-bold tracking-widest text-sm uppercase mb-4 block">Healthcare Platform</span>
+                            <h3 class="text-4xl font-display font-bold mb-6">Doctor Appointment System</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                                A full-stack booking platform enabling patients to schedule appointments with real-time availability. Features comprehensive patient management for doctors.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-8">
+                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">Python (Flask)</span>
+                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">MySQL</span>
+                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">HTML/CSS/JS</span>
+                            </div>
+                            <a href="https://cleo.help/login" target="_blank" class="inline-flex items-center gap-2 text-fuchsia-600 dark:text-fuchsia-400 font-bold hover:gap-4 transition-all">
+                                View Live Project <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Internship Recommender -->
+                    <div class="project-card group grid lg:grid-cols-12 gap-12 items-center reveal">
+                        <div class="lg:col-span-5 order-1">
+                            <span class="text-orange-600 dark:text-orange-400 font-bold tracking-widest text-sm uppercase mb-4 block">EdTech & AI</span>
+                            <h3 class="text-4xl font-display font-bold mb-6">Internship Recommender</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                                An intelligent platform utilizing Machine Learning algorithms to analyze student profiles and suggest the best-fit internship opportunities.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-8">
+                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">Python</span>
+                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">Machine Learning</span>
+                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">React</span>
+                            </div>
+                            <a href="https://intern-recommend.netlify.app/" target="_blank" class="inline-flex items-center gap-2 text-orange-600 dark:text-orange-400 font-bold hover:gap-4 transition-all">
+                                View Live Project <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <div class="lg:col-span-7 order-2 relative">
+                            <a href="https://intern-recommend.netlify.app/" target="_blank" class="block relative rounded-3xl overflow-hidden shadow-2xl aspect-video group-hover:scale-[1.02] transition-transform duration-700">
+                                <div class="absolute inset-0 bg-orange-900/10 group-hover:bg-transparent transition-all duration-500 z-10"></div>
+                                <!-- Placeholder Image for Education/Tech -->
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2671&auto=format&fit=crop" alt="Internship Recommender" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                
+                                <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse shadow-lg z-20">LIVE</div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Services/Skills Section (Moved Down) -->
+        <section id="services" class="py-32 px-6">
+            <div class="container mx-auto">
+                <div class="mb-20 reveal">
+                    <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">Technical Arsenal</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-fuchsia-500 to-orange-500 rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="reveal delay-100 group p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-fuchsia-500/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-fuchsia-50 dark:bg-slate-800 flex items-center justify-center text-fuchsia-600 dark:text-fuchsia-400 mb-8 group-hover:scale-110 transition-transform">
+                            <i data-lucide="layers" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 font-display">MERN Stack</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Specialized in building full-stack applications using MongoDB, Express.js, React, and Node.js. 
+                        </p>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="reveal delay-200 group p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-orange-500/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-orange-50 dark:bg-slate-800 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-8 group-hover:scale-110 transition-transform">
+                            <i data-lucide="brain-circuit" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 font-display">Python & ML</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Developing intelligent solutions with Python, Flask, and integrating Machine Learning models into web apps.
+                        </p>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="reveal delay-300 group p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-slate-800 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-8 group-hover:scale-110 transition-transform">
+                            <i data-lucide="server" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 font-display">Backend Systems</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Architecting robust REST APIs, managing databases, and ensuring secure authentication flows.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-32 px-6 overflow-hidden">
+            <div class="container mx-auto">
+                <div class="reveal bg-gradient-to-br from-fuchsia-600 to-orange-500 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
+                    <!-- Decor -->
+                    <div class="absolute top-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="absolute bottom-0 right-0 w-96 h-96 bg-black opacity-10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+
+                    <div class="relative z-10 max-w-3xl mx-auto">
+                        <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-8">Ready to bring your ideas to life?</h2>
+                        <p class="text-fuchsia-100 text-xl mb-12">
+                            I'm currently available for freelance projects and full-time opportunities.
+                        </p>
+                        <a href="mailto:official.khushwant.1@gmail.com" class="inline-flex items-center gap-3 px-10 py-5 bg-white text-fuchsia-600 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                            Say Hello <i data-lucide="mail" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-slate-200 dark:border-slate-800 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="font-display font-bold text-xl tracking-tighter">KHUSHWANT SINGH</div>
+            <div class="flex gap-6">
+                <a href="https://github.com/TooKhush" target="_blank" class="text-slate-500 hover:text-fuchsia-500 transition-colors"><i data-lucide="github"></i></a>
+                <a href="https://www.linkedin.com/in/khushwant-singh-developer/" target="_blank" class="text-slate-500 hover:text-fuchsia-500 transition-colors"><i data-lucide="linkedin"></i></a>
+                <a href="mailto:official.khushwant.1@gmail.com" class="text-slate-500 hover:text-fuchsia-500 transition-colors"><i data-lucide="mail"></i></a>
+            </div>
+            <div class="text-slate-500 text-sm">© 2024 Khushwant Singh. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Dark Mode Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+
+        // 3. Scroll Reveal Animation (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: Stop observing once revealed
+                    // revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 4. Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 5. Simple 3D Tilt Effect for Cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg rotation
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
