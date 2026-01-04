@@ -114,6 +114,117 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Screenshot frame (16:9) */
+        .screenshot-frame {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(15,23,42,0.06);
+            box-shadow: 0 10px 30px rgba(12, 18, 31, 0.08);
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+            position: relative;
+        }
+        .screenshot-frame::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 8px;
+            width: 40px;
+            height: 6px;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.06);
+        }
+        .screenshot-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+        /* Tech badges and primary button */
+        .tech-badge {
+            padding: 0.6rem 0.9rem;
+            border-radius: 9999px;
+            background: linear-gradient(180deg, #fff, #f8fafc);
+            color: #0f172a;
+            border: 1px solid #e6e9ef;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(12,18,31,0.06);
+            font-size: 0.95rem;
+        }
+        .dark .tech-badge {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+            color: #e6edf3;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,#d946ef,#f97316);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            box-shadow: 0 8px 30px rgba(217,70,239,0.12);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(217,70,239,0.18); }
+
+        /* Compact / Brutalist styles */
+        .tech-badge-small {
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            background: transparent;
+            border: 1px solid rgba(15,23,42,0.06);
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .dark .tech-badge-small { color: #e6edf3; border-color: rgba(255,255,255,0.04); }
+
+        .brutal-card { border: 1px solid rgba(15,23,42,0.08); background: transparent; transition: transform 0.12s ease, box-shadow 0.12s ease; }
+        .brutal-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(2,6,23,0.06); border-color: rgba(2,6,23,0.12); }
+
+        .card-overlay { pointer-events: none; }
+        .card-overlay h4 { margin-top: 0; }
+        .screenshot-frame { border-radius: 6px; }
+
+        /* Reduce global section vertical spacing for compact layout */
+        section { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        @media(min-width:1024px) { section { padding-top: 2rem; padding-bottom: 2rem; } }
+
+        /* Mobile responsive tweaks */
+        @media (max-width: 767px) {
+            /* Ensure hero stays visible and not overlapped by fixed nav */
+            .hero-compact { padding-top: 2.5rem; padding-bottom: 3.5rem; }
+
+            /* Slightly larger profile image on mobile so the face is visible */
+            .profile-wrap { width: 220px !important; height: 220px !important; margin: 0 auto; }
+
+            /* Hide the floating dock nav on small screens to avoid overlap */
+            nav { display: none !important; }
+
+            /* Stop float animation so image doesn't move off-screen */
+            .animate-float { animation: none !important; transform: none !important; }
+
+            /* Hide oversized decorative blobs for clarity and performance */
+            .fixed.inset-0 > div { display: none; }
+
+            /* Remove screenshot chrome on small screens */
+            .screenshot-frame::before { display: none; }
+            .screenshot-frame { box-shadow: none; border-radius: 8px; }
+
+            /* Tech bar should be horizontally scrollable if overflowed */
+            #tech-bar .container { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-left: 1rem; padding-right: 1rem; }
+            #tech-bar::-webkit-scrollbar { display: none; }
+
+            /* On mobile, overlays are controlled via .card-open class (tapped) */
+            .card-overlay { opacity: 0; pointer-events: none; transition: opacity .18s ease; }
+            .brutal-card.card-open .card-overlay { opacity: 1; pointer-events: auto; }
+
+            /* Ensure overlay content is scrollable on small screens */
+            .card-overlay { overflow-y: auto; }
+
+            /* Make overlay text slightly larger and readable */
+            .card-overlay p, .card-overlay h4 { font-size: 0.95rem; }
+
+            /* Slightly move profile badges closer to the content on very small screens */
+            .profile-badges { top: calc(100% + 12px) !important; gap: 0.5rem; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-500 antialiased overflow-x-hidden font-sans">
@@ -139,14 +250,14 @@
                 <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Work</span>
             </a>
 
-            <a href="#services" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+            <a href="#tech-bar" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
                 <i data-lucide="sparkles" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-400 transition-colors"></i>
-                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Expertise</span>
+                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Tech</span>
             </a>
 
-            <a href="#contact" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+            <a href="mailto:official.khushwant.1@gmail.com" class="nav-item group relative p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
                 <i data-lucide="mail" class="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-400 transition-colors"></i>
-                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Contact</span>
+                <span class="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Email</span>
             </a>
 
             <!-- Divider -->
@@ -163,30 +274,21 @@
     <!-- Main Content -->
     <main>
         
-        <!-- Hero Section -->
-        <section class="min-h-screen flex items-center justify-center pt-20 relative px-6">
-            <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Hero Section (Compact) -->
+        <section class="py-8 relative px-6 hero-compact">
+            <div class="container mx-auto grid lg:grid-cols-2 gap-8 items-center">
                 
-                <!-- Text Content -->
+                <!-- Text Content (Compact) -->
                 <div class="reveal active z-10 order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-400 font-medium text-sm">
-                        <span class="w-2 h-2 rounded-full bg-fuchsia-500 animate-pulse"></span>
-                        Available for work
-                    </div>
-                    
-                    <h1 class="text-5xl lg:text-7xl font-display font-bold tracking-tighter leading-[1.1] mb-6">
-                        Hi, I'm <br>
-                        <span class="text-gradient">Khushwant Singh.</span>
+                    <h1 class="text-4xl lg:text-5xl font-display font-extrabold tracking-tight leading-[1.05] mb-2">
+                        Hi, I'm <span class="text-gradient">Khushwant Singh</span>
                     </h1>
+                    <div class="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400 mb-3">
+                        <div class="font-semibold">3+ Full Stack Projects</div>
+                        <div class="border-l border-slate-300 pl-4">Available for Hire</div>
+                    </div>
+                    <p class="text-base text-slate-600 dark:text-slate-400 mb-4 max-w-lg">Building high-performance web platforms that drive business growth.</p>
 
-                    <h2 class="text-2xl font-display font-medium text-slate-700 dark:text-slate-200 mb-6">
-                        Full Stack Developer <span class="text-fuchsia-500 mx-2">•</span> MERN Specialist
-                    </h2>
-                    
-                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-lg leading-relaxed">
-                        I build scalable web applications and intelligent systems using React, Node.js, and Python. Turning complex logic into seamless user experiences.
-                    </p>
-                    
                     <!-- NEW Social & Contact Dock (Replaces previous buttons) -->
                     <div class="flex flex-wrap items-center gap-4 mt-8">
                         <!-- LinkedIn -->
@@ -216,7 +318,7 @@
 
                 <!-- Profile Picture / Visual -->
                 <div class="order-1 lg:order-2 flex justify-center relative reveal delay-200">
-                    <div class="relative w-[350px] h-[350px] lg:w-[450px] lg:h-[450px] animate-float">
+                    <div class="relative profile-wrap w-[300px] h-[300px] lg:w-[450px] lg:h-[450px] animate-float">
                         <!-- Glow Effect -->
                         <div class="absolute inset-0 bg-gradient-to-tr from-fuchsia-500 to-orange-500 rounded-full opacity-30 blur-3xl"></div>
                         
@@ -228,24 +330,7 @@
                             </div>
                         </div>
 
-                         <!-- Floating Badges -->
-                         <div class="absolute -right-4 top-1/4 p-4 glass rounded-2xl flex items-center gap-3 animate-bounce shadow-lg" style="animation-duration: 3.5s;">
-                            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
-                                <i data-lucide="database" class="w-5 h-5"></i>
-                            </div>
-                            <div class="text-sm">
-                                <div class="font-bold dark:text-white">MongoDB</div>
-                            </div>
-                        </div>
 
-                        <div class="absolute -left-4 bottom-1/3 p-4 glass rounded-2xl flex items-center gap-3 animate-bounce shadow-lg" style="animation-duration: 4.5s;">
-                            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500">
-                                <i data-lucide="atom" class="w-5 h-5"></i>
-                            </div>
-                            <div class="text-sm">
-                                <div class="font-bold dark:text-white">React.js</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -255,53 +340,19 @@
             </div>
         </section>
 
-        <!-- Tech Stack Marquee (New Feature) -->
-        <section class="py-10 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800 backdrop-blur-sm overflow-hidden">
-            <div class="flex gap-16 animate-scroll w-max">
-                <!-- Duplicate items for seamless loop -->
-                <div class="flex gap-16 items-center text-slate-400 font-display font-bold text-xl uppercase tracking-widest">
-                    <span>React</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Node.js</span>
-                    <span class="text-orange-500">•</span>
-                    <span>MongoDB</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Express</span>
-                    <span class="text-orange-500">•</span>
-                    <span>Python</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Flask</span>
-                    <span class="text-orange-500">•</span>
-                    <span>Machine Learning</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Git</span>
-                    <span class="text-orange-500">•</span>
-                    <span>REST API</span>
-                </div>
-                <div class="flex gap-16 items-center text-slate-400 font-display font-bold text-xl uppercase tracking-widest">
-                    <span>React</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Node.js</span>
-                    <span class="text-orange-500">•</span>
-                    <span>MongoDB</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Express</span>
-                    <span class="text-orange-500">•</span>
-                    <span>Python</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Flask</span>
-                    <span class="text-orange-500">•</span>
-                    <span>Machine Learning</span>
-                    <span class="text-fuchsia-500">•</span>
-                    <span>Git</span>
-                    <span class="text-orange-500">•</span>
-                    <span>REST API</span>
-                </div>
+        <!-- Tech Bar (Compact) -->
+        <section id="tech-bar" class="py-3 border-b border-slate-200 dark:border-slate-800">
+            <div class="container mx-auto flex items-center justify-center gap-3">
+                <div class="tech-badge-small">React</div>
+                <div class="tech-badge-small">Node.js</div>
+                <div class="tech-badge-small">Python</div>
+                <div class="tech-badge-small">MongoDB</div>
+                <div class="tech-badge-small">SQL</div>
             </div>
         </section>
 
         <!-- Projects Section (Moved Up + Enhanced Background) -->
-        <section id="work" class="py-32 relative px-6 overflow-hidden">
+        <section id="work" class="py-12 relative px-6 overflow-hidden">
              <!-- Enhanced Background Pattern -->
             <div class="absolute inset-0 bg-slate-50 dark:bg-slate-900 transition-colors duration-500"></div>
             <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -314,145 +365,95 @@
                     <p class="text-xl text-slate-600 dark:text-slate-400">Real-world solutions built with modern tech.</p>
                 </div>
 
-                <div class="flex flex-col gap-32">
-                    
-                    <!-- Project 1: Doctor Appointment -->
-                    <div class="project-card group grid lg:grid-cols-12 gap-12 items-center reveal">
-                        <div class="lg:col-span-7 order-2 lg:order-1 relative">
-                            <a href="https://cleo.help/login" target="_blank" class="block relative rounded-3xl overflow-hidden shadow-2xl aspect-video group-hover:scale-[1.02] transition-transform duration-700">
-                                <div class="absolute inset-0 bg-fuchsia-900/10 group-hover:bg-transparent transition-all duration-500 z-10"></div>
-                                <!-- Placeholder Image for Medical/Doctor App -->
-                                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop" alt="Doctor Appointment System" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                                
-                                <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse shadow-lg z-20">LIVE</div>
-                            </a>
-                        </div>
-                        <div class="lg:col-span-5 order-1 lg:order-2">
-                            <span class="text-fuchsia-600 dark:text-fuchsia-400 font-bold tracking-widest text-sm uppercase mb-4 block">Healthcare Platform</span>
-                            <h3 class="text-4xl font-display font-bold mb-6">Doctor Appointment System</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
-                                A full-stack booking platform enabling patients to schedule appointments with real-time availability. Features comprehensive patient management for doctors.
-                            </p>
-                            <div class="flex flex-wrap gap-3 mb-8">
-                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">Python (Flask)</span>
-                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">MySQL</span>
-                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">HTML/CSS/JS</span>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+
+                    <!-- Project 1 -->
+                    <a href="https://cleo.help/login" target="_blank" class="group block brutal-card border rounded-lg overflow-hidden">
+                        <div class="screenshot-frame aspect-video relative">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop" alt="Doctor Appointment System" class="w-full h-full">
+                            <div class="card-overlay absolute inset-0 p-6 opacity-0 transition-opacity bg-slate-900/95 text-white group-hover:opacity-100">
+                                <h4 class="font-semibold mb-2">The Challenge</h4>
+                                <p class="text-sm mb-3">High no-show rates and fragmented patient data affected clinic operations.</p>
+                                <h4 class="font-semibold mb-2">The Solution</h4>
+                                <p class="text-sm mb-3">Real-time booking, notifications and patient management to reduce no-shows.</p>
+                                <h4 class="font-semibold mb-2">My Role</h4>
+                                <p class="text-sm">Full-stack delivery, API design and UX improvements.</p>
+                                <a href="https://cleo.help/login" class="overlay-open inline-block mt-3 text-xs underline">Open Project</a>
                             </div>
-                            <a href="https://cleo.help/login" target="_blank" class="inline-flex items-center gap-2 text-fuchsia-600 dark:text-fuchsia-400 font-bold hover:gap-4 transition-all">
-                                View Live Project <i data-lucide="external-link" class="w-4 h-4"></i>
-                            </a>
                         </div>
-                    </div>
-
-                    <!-- Project 2: Internship Recommender -->
-                    <div class="project-card group grid lg:grid-cols-12 gap-12 items-center reveal">
-                        <div class="lg:col-span-5 order-1">
-                            <span class="text-orange-600 dark:text-orange-400 font-bold tracking-widest text-sm uppercase mb-4 block">EdTech & AI</span>
-                            <h3 class="text-4xl font-display font-bold mb-6">Internship Recommender</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
-                                An intelligent platform utilizing Machine Learning algorithms to analyze student profiles and suggest the best-fit internship opportunities.
-                            </p>
-                            <div class="flex flex-wrap gap-3 mb-8">
-                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">Python</span>
-                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">Machine Learning</span>
-                                <span class="px-4 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-sm font-medium border border-slate-300 dark:border-slate-700">React</span>
+                        <div class="p-4 flex items-center justify-between border-t">
+                            <div>
+                                <div class="text-sm uppercase text-slate-500">Healthcare</div>
+                                <div class="font-bold">Doctor Appointment System</div>
                             </div>
-                            <a href="https://intern-recommend.netlify.app/" target="_blank" class="inline-flex items-center gap-2 text-orange-600 dark:text-orange-400 font-bold hover:gap-4 transition-all">
-                                View Live Project <i data-lucide="external-link" class="w-4 h-4"></i>
-                            </a>
+                            <div class="text-sm text-slate-500">Python • MySQL</div>
                         </div>
-                        <div class="lg:col-span-7 order-2 relative">
-                            <a href="https://intern-recommend.netlify.app/" target="_blank" class="block relative rounded-3xl overflow-hidden shadow-2xl aspect-video group-hover:scale-[1.02] transition-transform duration-700">
-                                <div class="absolute inset-0 bg-orange-900/10 group-hover:bg-transparent transition-all duration-500 z-10"></div>
-                                <!-- Placeholder Image for Education/Tech -->
-                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2671&auto=format&fit=crop" alt="Internship Recommender" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                                
-                                <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse shadow-lg z-20">LIVE</div>
-                            </a>
+                    </a>
+
+                    <!-- Project 2 -->
+                    <a href="https://intern-recommend.netlify.app/" target="_blank" class="group block brutal-card border rounded-lg overflow-hidden">
+                        <div class="screenshot-frame aspect-video relative">
+                            <img src="intern.webp" alt="Internship Recommender" class="w-full h-full object-cover" loading="lazy" decoding="async" width="1280" height="720">
+                            <div class="card-overlay absolute inset-0 p-6 opacity-0 transition-opacity bg-slate-900/95 text-white group-hover:opacity-100">
+                                <h4 class="font-semibold mb-2">The Challenge</h4>
+                                <p class="text-sm mb-3">Students struggled to find relevant internships at scale.</p>
+                                <h4 class="font-semibold mb-2">The Solution</h4>
+                                <p class="text-sm mb-3">An ML pipeline scores profiles and surfaces tailored matches with a responsive UI.</p>
+                                <h4 class="font-semibold mb-2">My Role</h4>
+                                <p class="text-sm">Modeling, data pipelines and frontend integration.</p>
+                                <a href="https://intern-recommend.netlify.app/" class="overlay-open inline-block mt-3 text-xs underline">Open Project</a>
+                            </div>
                         </div>
-                    </div>
+                        <div class="p-4 flex items-center justify-between border-t">
+                            <div>
+                                <div class="text-sm uppercase text-slate-500">EdTech & ML</div>
+                                <div class="font-bold">Internship Recommender</div>
+                            </div>
+                            <div class="text-sm text-slate-500">Python • React</div>
+                        </div>
+                    </a>
+
+                    <!-- Project 3: Restaurant Landing with Live Menu -->
+                    <a href="#" class="group block brutal-card border rounded-lg overflow-hidden lg:col-span-2">
+                        <div class="screenshot-frame aspect-video relative">
+                            <img src="chienese.webp" alt="Restaurant landing with live daily menu" class="w-full h-full object-cover" loading="lazy" decoding="async" width="1280" height="720">
+
+                            <div class="card-overlay absolute inset-0 p-6 opacity-0 transition-opacity bg-slate-900/95 text-white group-hover:opacity-100">
+                                <h4 class="font-semibold mb-2">The Challenge</h4>
+                                <p class="text-sm mb-3">Traditional printed or static online menus make it hard to publish daily specials and lead to outdated customer information.</p>
+
+                                <h4 class="font-semibold mb-2">The Solution</h4>
+                                <p class="text-sm mb-3">Built a responsive restaurant landing with a real-time daily menu feature powered by a simple admin panel and WebSockets so menu changes appear instantly across devices.</p>
+
+                                <h4 class="font-semibold mb-2">My Role</h4>
+                                <p class="text-sm">Full-stack implementation — frontend UI/UX, backend API and real-time integration, responsive design, and SEO optimization for local search.</p>
+
+                                <a href="#" class="overlay-open inline-block mt-3 text-xs underline">Open Project</a>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex items-center justify-between border-t">
+                            <div>
+                                <div class="text-sm uppercase text-slate-500">Hospitality / Web</div>
+                                <div class="font-bold">Restaurant Landing — Live Daily Menu</div>
+                            </div>
+                            <div class="text-sm text-slate-500">React • Node.js • PostgreSQL • Socket.IO</div>
+                        </div>
+                    </a>
 
                 </div>
             </div>
         </section>
 
-        <!-- Services/Skills Section (Moved Down) -->
-        <section id="services" class="py-32 px-6">
-            <div class="container mx-auto">
-                <div class="mb-20 reveal">
-                    <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">Technical Arsenal</h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-fuchsia-500 to-orange-500 rounded-full"></div>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="reveal delay-100 group p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-fuchsia-500/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                        <div class="w-16 h-16 rounded-2xl bg-fuchsia-50 dark:bg-slate-800 flex items-center justify-center text-fuchsia-600 dark:text-fuchsia-400 mb-8 group-hover:scale-110 transition-transform">
-                            <i data-lucide="layers" class="w-8 h-8"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 font-display">MERN Stack</h3>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                            Specialized in building full-stack applications using MongoDB, Express.js, React, and Node.js. 
-                        </p>
-                    </div>
-
-                    <!-- Service Card 2 -->
-                    <div class="reveal delay-200 group p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-orange-500/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                        <div class="w-16 h-16 rounded-2xl bg-orange-50 dark:bg-slate-800 flex items-center justify-center text-orange-600 dark:text-orange-400 mb-8 group-hover:scale-110 transition-transform">
-                            <i data-lucide="brain-circuit" class="w-8 h-8"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 font-display">Python & ML</h3>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                            Developing intelligent solutions with Python, Flask, and integrating Machine Learning models into web apps.
-                        </p>
-                    </div>
-
-                    <!-- Service Card 3 -->
-                    <div class="reveal delay-300 group p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                        <div class="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-slate-800 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-8 group-hover:scale-110 transition-transform">
-                            <i data-lucide="server" class="w-8 h-8"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 font-display">Backend Systems</h3>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                            Architecting robust REST APIs, managing databases, and ensuring secure authentication flows.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-32 px-6 overflow-hidden">
-            <div class="container mx-auto">
-                <div class="reveal bg-gradient-to-br from-fuchsia-600 to-orange-500 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
-                    <!-- Decor -->
-                    <div class="absolute top-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-                    <div class="absolute bottom-0 right-0 w-96 h-96 bg-black opacity-10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
-
-                    <div class="relative z-10 max-w-3xl mx-auto">
-                        <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-8">Ready to bring your ideas to life?</h2>
-                        <p class="text-fuchsia-100 text-xl mb-12">
-                            I'm currently available for freelance projects and full-time opportunities.
-                        </p>
-                        <a href="mailto:official.khushwant.1@gmail.com" class="inline-flex items-center gap-3 px-10 py-5 bg-white text-fuchsia-600 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                            Say Hello <i data-lucide="mail" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Services & Contact removed for compact layout (CTA moved to footer) -->
     </main>
 
     <!-- Footer -->
-    <footer class="py-10 border-t border-slate-200 dark:border-slate-800 px-6">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="font-display font-bold text-xl tracking-tighter">KHUSHWANT SINGH</div>
-            <div class="flex gap-6">
-                <a href="https://github.com/TooKhush" target="_blank" class="text-slate-500 hover:text-fuchsia-500 transition-colors"><i data-lucide="github"></i></a>
-                <a href="https://www.linkedin.com/in/khushwant-singh-developer/" target="_blank" class="text-slate-500 hover:text-fuchsia-500 transition-colors"><i data-lucide="linkedin"></i></a>
-                <a href="mailto:official.khushwant.1@gmail.com" class="text-slate-500 hover:text-fuchsia-500 transition-colors"><i data-lucide="mail"></i></a>
-            </div>
-            <div class="text-slate-500 text-sm">© 2024 Khushwant Singh. All rights reserved.</div>
+    <footer class="py-8 border-t border-slate-200 dark:border-slate-800 px-6">
+        <div class="container mx-auto text-center">
+            <div class="text-lg font-bold mb-4">Ready to build?</div>
+            <a href="mailto:official.khushwant.1@gmail.com" class="btn-primary px-6 py-3 rounded-full">Email Me</a>
+            <div class="mt-3 text-sm text-slate-500">© 2024 Khushwant Singh</div>
         </div>
     </footer>
 
@@ -534,6 +535,53 @@
                 card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
             });
         });
+
+        // Also apply to the new compact brutal cards (lighter tilt)
+        document.querySelectorAll('.brutal-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -3; // softer tilt
+                const rotateY = ((x - centerX) / centerX) * 3;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+
+        // Mobile: make tap open overlay first, second tap navigates
+        function isSmallViewport() { return window.innerWidth <= 1024; }
+        document.querySelectorAll('.brutal-card').forEach(card => {
+            card.addEventListener('click', function (e) {
+                if (!isSmallViewport()) return; // preserve desktop behavior
+                if (!card.classList.contains('card-open')) {
+                    e.preventDefault();
+                    // close other open cards
+                    document.querySelectorAll('.brutal-card.card-open').forEach(c => c.classList.remove('card-open'));
+                    card.classList.add('card-open');
+                    card.scrollIntoView({behavior: 'smooth', block: 'center'});
+                } else {
+                    // already open — let the link activate if present
+                }
+            });
+        });
+
+        // Close overlays when tapping outside
+        document.addEventListener('click', function (e) {
+            if (!isSmallViewport()) return;
+            if (!e.target.closest('.brutal-card')) {
+                document.querySelectorAll('.brutal-card.card-open').forEach(c => c.classList.remove('card-open'));
+            }
+        });
     </script>
 </body>
 </html>
+remove all the comments . it should look like real men build it . not a ai
