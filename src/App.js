@@ -61,6 +61,7 @@ const App = () => {
       year: "2025",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" ,
       link: "https://cleo.help/login",
+      status: "LIVE",
     },
     {
       id: 2,
@@ -72,6 +73,7 @@ const App = () => {
       year: "2024",
       image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
       link: "https://khushwant.netlify.app/#",
+      status: "IN DEVELOPMENT",
     },
     {
       id: 3,
@@ -83,6 +85,7 @@ const App = () => {
       year: "2024",
       image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
       link: "https://intern-recommend.netlify.app/",
+      status: "LIVE",
     }
   ];
 
@@ -320,7 +323,7 @@ const App = () => {
                 </div>
 
                 <div className="pt-4 md:pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                  <span className="font-mono text-[10px] md:text-xs text-gray-600">DEPLOYED_STATUS: <span className="text-green-500">LIVE</span></span>
+                  <span className="font-mono text-[10px] md:text-xs text-gray-600">DEPLOYED_STATUS: <span className={projects[activeProject].status === "LIVE" ? "text-green-500" : "text-yellow-500"}>{projects[activeProject].status} </span> </span>
                   <a href={projects[activeProject].link}target="_blank"rel="noopener noreferrer"className="flex items-center gap-2 text-xs md:text-sm font-bold text-white hover:text-green-400 transition-colors">
                     VISIT SITE <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></a>
                 </div>
