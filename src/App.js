@@ -185,8 +185,8 @@ const App = () => {
               </a>
               
               <div className="flex gap-4 md:gap-6 items-center pl-0 sm:pl-8 sm:border-l border-white/10 h-12 md:h-14">
-                <a href="#" className="text-gray-400 hover:text-white hover:-translate-y-1 transition-all"><Github className="w-5 h-5 md:w-6 md:h-6"/></a>
-                <a href="#" className="text-gray-400 hover:text-white hover:-translate-y-1 transition-all"><Linkedin className="w-5 h-5 md:w-6 md:h-6"/></a>
+                <a href="https://github.com/TooKhush/" className="text-gray-400 hover:text-white hover:-translate-y-1 transition-all"><Github className="w-5 h-5 md:w-6 md:h-6"/></a>
+                <a href="https://www.linkedin.com/in/khushwant-singh-developer/" className="text-gray-400 hover:text-white hover:-translate-y-1 transition-all"><Linkedin className="w-5 h-5 md:w-6 md:h-6"/></a>
                 <a href="mailto:official.khushwant.1@gmail.com" className="text-gray-400 hover:text-white hover:-translate-y-1 transition-all"><Mail className="w-5 h-5 md:w-6 md:h-6"/></a>
               </div>
             </div>
