@@ -321,9 +321,8 @@ const App = () => {
 
                 <div className="pt-4 md:pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                   <span className="font-mono text-[10px] md:text-xs text-gray-600">DEPLOYED_STATUS: <span className="text-green-500">LIVE</span></span>
-                  <button className="flex items-center gap-2 text-xs md:text-sm font-bold text-white hover:text-green-400 transition-colors">
-                    VISIT SITE <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
-                  </button>
+                  <a href={projects[activeProject].link}target="_blank"rel="noopener noreferrer"className="flex items-center gap-2 text-xs md:text-sm font-bold text-white hover:text-green-400 transition-colors">
+                    VISIT SITE <ExternalLink className="w-3 h-3 md:w-4 md:h-4" /></a>
                 </div>
               </div>
             </div>
