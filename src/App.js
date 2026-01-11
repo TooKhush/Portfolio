@@ -34,15 +34,16 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-      return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
-      };
-    }
-  }, [isDragging, dragOffset]);
+  if (isDragging) {
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isDragging, dragOffset]);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('official.khushwant.1@gmail.com');
@@ -407,9 +408,9 @@ const App = () => {
             SYSTEMS OPERATIONAL
           </div>
           <div className="flex gap-4 md:gap-8 font-mono text-xs">
-            <a href="#" className="hover:text-white transition-colors">GITHUB</a>
-            <a href="#" className="hover:text-white transition-colors">LINKEDIN</a>
-            <a href="#" className="hover:text-white transition-colors">TWITTER</a>
+            <a href="https://github.com/TooKhush/" className="hover:text-white transition-colors">GITHUB</a>
+            <a href="https://www.linkedin.com/in/khushwant-singh-developer/" className="hover:text-white transition-colors">LINKEDIN</a>
+            <a href="https://x.com/Kushwnt/" className="hover:text-white transition-colors">TWITTER</a>
           </div>
         </div>
       </footer>
