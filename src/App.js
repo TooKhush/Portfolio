@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, ArrowUpRight, Copy, Mail, Github, Linkedin, Globe, Code2, ExternalLink, Terminal, Database, Cpu, Star, Zap, Sparkles, ChevronRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Copy, Mail, Github, Linkedin, Code2, ExternalLink, Terminal, Database, Cpu, Star, Zap, Sparkles, ChevronRight } from 'lucide-react';
 
 const App = () => {
-  const [activeProject, setActiveProject] = useState(0);
+  const [, setActiveProject] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => { setLoaded(true); }, []);
@@ -207,7 +207,7 @@ const App = () => {
                 <div className="inline-block bg-[#0a0a0a] border-4 border-white px-5 md:px-6 py-2.5 md:py-3"
                      style={{ boxShadow: '5px 5px 0 #a855f7' }}>
                   <h2 className="text-lg md:text-xl font-black text-white tracking-tight">KHUSHWANT SINGH</h2>
-                  <p className="text-[10px] md:text-xs text-[#84cc16] font-mono font-bold">// FULL_STACK_DEV</p>
+                  <p className="text-[10px] md:text-xs text-[#84cc16] font-mono font-bold">{"// FULL_STACK_DEV"}</p>
                 </div>
               </div>
             </div>
@@ -230,7 +230,7 @@ const App = () => {
         {/* Section header — left bleed */}
         <div className="px-5 md:px-10 lg:px-16 xl:px-20 mb-10 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] md:text-xs text-[#f97316] font-bold uppercase tracking-widest mb-2">// Selected Work</div>
+            <div className="font-mono text-[10px] md:text-xs text-[#f97316] font-bold uppercase tracking-widest mb-2">{"// Selected Work"}</div>
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter glitch-hover">
               CASE STUDIES<span className="text-[#f97316]">.</span>
             </h2>
@@ -331,7 +331,7 @@ const App = () => {
         <div className="px-5 md:px-10 lg:px-16 xl:px-20 mb-10 md:mb-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
             <div className="lg:col-span-8">
-              <div className="font-mono text-[10px] md:text-xs text-[#a855f7] font-bold uppercase tracking-widest mb-2">// What I Bring</div>
+              <div className="font-mono text-[10px] md:text-xs text-[#a855f7] font-bold uppercase tracking-widest mb-2">{"// What I Bring"}</div>
               <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter glitch-hover">
                 THE TOOLKIT<span className="text-[#a855f7]">.</span>
               </h2>
@@ -427,7 +427,7 @@ const App = () => {
           <div className="lg:col-span-7 px-5 md:px-10 lg:px-16 xl:px-20 py-10 md:py-16 relative">
             <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-1 bg-[#f97316]"></div>
             
-            <div className="font-mono text-[10px] md:text-xs text-[#f97316] font-bold uppercase tracking-widest mb-4">// Let's Talk</div>
+            <div className="font-mono text-[10px] md:text-xs text-[#f97316] font-bold uppercase tracking-widest mb-4">{"// Let's Talk"}</div>
             
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter mb-4 glitch-hover">
               HAVE A<br/>VISION<span className="text-[#f97316]">?</span>
@@ -470,7 +470,7 @@ const App = () => {
               {/* Big email display */}
               <div className="bg-[#0a0a0a] border-4 border-[#f97316] p-5 md:p-6 mb-6"
                    style={{ boxShadow: '6px 6px 0 #f97316' }}>
-                <div className="font-mono text-[10px] text-gray-500 mb-2 uppercase tracking-widest">// Email</div>
+                <div className="font-mono text-[10px] text-gray-500 mb-2 uppercase tracking-widest">{"// Email"}</div>
                 <div className="font-mono text-xs md:text-sm text-[#f97316] font-bold break-all">official.khushwant.1@gmail.com</div>
               </div>
 
