@@ -22,20 +22,28 @@ const App = () => {
       link: "https://cleo.help/login", status: "LIVE", color: "#84cc16",
     },
     {
-      id: 2, title: "Mountain Revenue Engine", category: "Direct Sales Platform",
-      metric: "\u20b912L/Year Recovered",
-      description: "Hotels in the Himalayas were bleeding 20% revenue to OTA commissions. I built a direct-booking engine that handles payments, syncs inventory in real-time, and keeps 100% of the profit with the owner.",
-      stack: ["React", "Node.js", "Stripe Connect", "MongoDB"], year: "2024",
-      image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-      link: "https://khushwant.netlify.app/#", status: "IN DEV", color: "#f97316",
-    },
-    {
       id: 3, title: "Internship AI Matcher", category: "Recommendation System",
       metric: "500+ Perfect Matches",
       description: "Students were drowning in generic job listings. I built an engine that reads profiles using cosine similarity algorithms, connecting candidates to roles based on skills, not keywords. It's Tinder for jobs, but it works.",
       stack: ["Python", "Scikit-Learn", "FastAPI", "React"], year: "2024",
       image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
       link: "https://intern-recommend.netlify.app/", status: "LIVE", color: "#a855f7",
+    },
+    {
+      id: 4, title: "Eye Hospital Website", category: "Custom Website",
+      metric: "Devloped in 1 week",
+      description: "Devloped a custom website for a local eye hospital, showcasing their services and expertise. The site features an intuitive design, easy navigation, and is optimized for both desktop and mobile devices.",
+      stack: ["Mern"], year: "2025",
+      image: "https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+      link: "https://eye-hospital-bay.vercel.app/", status: "LIVE", color: "#84cc16",
+    },
+    {
+      id: 5, title: "Thrift Store", category: "Full stack Website",
+      metric: "Devloped in 1 week, has active 500 user on real devlopment",
+      description: "Devloped a full-stack website for a local thrift store, allowing users to browse and purchase second-hand items. The site features a modern design, easy navigation, and is optimized for both desktop and mobile devices.",
+      stack: ["Mern"], year: "2025",
+      image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+      link: "https://crazythrift.vercel.app/", status: "LIVE", color: "#f97316",
     }
   ];
 
@@ -123,16 +131,6 @@ const App = () => {
               <div className="ml-auto bg-[#f97316] text-black font-mono font-bold text-[8px] sm:text-[10px] px-2 py-1 border-2 border-black" style={{ boxShadow: '2px 2px 0 #000', transform: 'rotate(2deg)' }}>
                 <Zap className="w-2.5 h-2.5 inline mr-0.5" />OPEN
               </div>
-            </div>
-
-            {/* Status badge */}
-            <div className={`inline-flex self-start items-center gap-2 mb-5 md:mb-6 px-3 md:px-4 py-1.5 md:py-2 bg-[#1a1a1a] border-3 md:border-4 border-[#84cc16] font-mono text-[9px] md:text-xs font-bold text-[#84cc16] uppercase tracking-widest ${loaded ? 'anim-up' : ''}`}
-                 style={{ boxShadow: '3px 3px 0 #84cc16' }}>
-              <span className="relative flex h-2 w-2 md:h-2.5 md:w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full bg-[#84cc16] opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 md:h-2.5 md:w-2.5 bg-[#84cc16]"></span>
-              </span>
-              AVAILABLE WINTER 2026
             </div>
 
             {/* Heading */}
